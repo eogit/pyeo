@@ -75,7 +75,7 @@ from bs4 import BeautifulSoup  # I didn't really want to use BS, but I can't see
 from tempfile import TemporaryDirectory
 from xml.etree import ElementTree
 
-import ogr, osr
+from osgeo import ogr, osr
 import requests
 import tenacity
 from botocore.exceptions import ClientError
