@@ -45,6 +45,14 @@ from pyeo.raster_manipulation import stack_images, create_matching_dataset, appl
 
 import pyeo.windows_compatability
 
+# lazy import of joblib based on the sklearn install 
+try: 
+    from sklearn.externals import joblib
+except: 
+    log.warning("Sklearn joblib import failed, trying generic joblib")
+    import joblib
+    
+
 log = logging.getLogger(__name__)
 
 def change_from_composite(image_path, composite_path, model_path, class_out_path, prob_out_path=None):
@@ -138,14 +146,7 @@ def classify_image(image_path, model_path, class_out_path, prob_out_path=None,
         log.info("No chunk size given, attempting autochunk.")
         num_chunks = autochunk(image)
         log.info("Autochunk to {} chunks".format(num_chunks))
-    try:
-        model = sklearn_joblib.load(model_path)
-    except KeyError:
-        log.warning("Sklearn joblib import failed,trying generic joblib")
-        model = joblib.load(model_path)
-    except TypeError:
-        log.warning("Sklearn joblib import failed,trying generic joblib")
-        model = joblib.load(model_path)
+    model = joblib.load(model_path)
     class_out_image = create_matching_dataset(image, class_out_path, format=out_type, datatype=gdal.GDT_Byte)
     log.info("Created classification image file: {}".format(class_out_path))
     if prob_out_path:
