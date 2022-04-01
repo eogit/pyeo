@@ -118,12 +118,10 @@ import faulthandler
 import glob
 import logging
 import numpy as np
-import ogr
 import os
 from osgeo import gdal, gdalconst
 from osgeo import gdal_array, osr, ogr
 from osgeo.gdal_array import NumericTypeCodeToGDALTypeCode, GDALTypeCodeToNumericTypeCode
-import osr
 import pdb
 import re
 import shutil
